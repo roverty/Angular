@@ -75,9 +75,35 @@ ng <comando> [opciones]
 
 Aunque puede haber variaciones.
 
-<!-- Describir la diferencia entre módulos y componentes, agregar imágenes -->
+<!-- Describir la diferencia entre módulos y componentes, services agregar imágenes -->
+
+<!--decorators-->
 
 
+
+### Empecemos
+
+**Componentes reutilizables**
+
+Al estar creando aplicaciones en Angular debemos tomar en cuenta que todas nuestras aplicaciones deben estar perfectamente moduladas para que los componentes que creemos puedan ser perfectamente reutilizables.
+
+En Angular se reconocen 3 formas principales de crear código reutilizable:
+
+* A través de módulos
+* A través de servicios
+* A través de componentes
+
+#### Arquitectura básica de Angular
+
+
+
+#### Entry points
+
+
+
+Hablar de 
+
+* app-root
 
 ### Referencias
 
