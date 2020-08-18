@@ -75,12 +75,6 @@ ng <comando> [opciones]
 
 Aunque puede haber variaciones.
 
-<!-- Describir la diferencia entre módulos y componentes, services agregar imágenes -->
-
-<!--decorators-->
-
-
-
 ### Empecemos
 
 **Componentes reutilizables**
@@ -95,17 +89,97 @@ En Angular se reconocen 3 formas principales de crear código reutilizable:
 
 #### Arquitectura básica de Angular
 
+Para entender perfectamente las relaciones entre módulos, servicios, compontentes y plantillas nos apoyaremos en el siguiente esquema:
 
+![overview](./assets/overview2.png)
 
-#### Entry points
+El **sistema de módulos** de Angular se llama `NgModules`, el cual se puede entender como un contender de código dedicado a un dominio específico de la aplicación, un flujo de trabajo o un conjunto de capacidades estrechamente relacionado. 
 
+* Por ejemplo, podríamos tener un módulo que solo se encargue de la autentificación de los usuarios y esta sea su única tarea.
+* Otro módulo podría estar enfocado únicamente a un *carrito de compras* cuyas tareas sean agregar y quitar del carrito de compras, calcular el total, posibles descuentos, etc.
 
+Todas las aplicaciones de Angular tienen por lo menos un módulo, el que se incluye por defecto, convencionalmente llamado `AppModule`, de hecho para lanzar nuestra aplicación usualmente arrancamos (bootstraping), dicho módulo, también conocido como *root NgModule*.
 
-Hablar de 
+Un módulo puede estar integrado por varios *componentes*, de hecho por ello se puede decir que los módulos proveen de *contexto de compilación* a sus componentes, le indican o asocian imports, exports, directivas, etc. 
 
-* app-root
+La siguiente imagen ilustra los componentes de un módulo de Angular (NgModule)
+
+![Component compilation context](assets/compilation-context.png)
+
+Organizar el código en distintos módulos funcionales ayuda a administrar el desarrollo de aplicaciones complejas y a diseñar pensando en la reutilización.
+
+Por otra parte, los **Componentes** de Angular definen una clase que contiene la lógica y los datos de la aplicación asociados con una *plantilla HTML*. Dicha plantilla define la vista que será desplegada. En resumen, un componente controla una pieza de la pantalla llamada vista.
+
+Por último, los componentes utilizan **servicios**, los cuales proveen funcionalidades específicas que no están directamente relacionadas a las vistas, el ejemplo más común es obtener datos de nuestra fuente datos (*webservice*, Firebase, etc.)
+
+Angular distingue los componentes de los servicios para aumentar la modularidad y la reutilización. Al separar la funcionalidad relacionada con la vista de un componente de otros tipos de procesamiento, puede hacer que sus clases de componentes sean simples y eficientes.
+
+Por lo anterior, un componente puede delegar ciertas tareas a los servicios, como obtener datos del servidor, validar la entrada del usuario o iniciar sesión directamente en la consola.
+
+Los servicios utilizan mucho el concepto de Dependency Injection por lo que se recomienda revisarlo [aquí](https://angular.io/guide/dependency-injection)
+
+**Tanto los módulos como los componentes y servicios** utilizan *decoradores*, los cuales son una herramienta proporcionada por *TypeScript* que básicamente proveen metadatos que le dicen a Angular cómo utilizarlos.
+
+Los **decoradores** son funciones que modifican las clases de JavaScript. Angular define una serie de decoradores que adjuntan tipos específicos de metadatos a las clases, para que el sistema sepa qué significan esas clases y cómo deberían funcionar.
+
+Ahora sí ... ¡Vayamos al código!
+
+#### Entry point
+
+Al abrir el archivo `index.html` observamos que tenemos una nueva etiqueta:
+
+```html
+<body>
+  <app-root></app-root> <!-- Nueva etiqueta --> 
+</body>
+```
+
+Dicha etiqueta define un punto de entrada desde el cual `AppModule` iniciará con la carga de los componentes necesarios para incorporar todo lo necesario para que Angular trabaje.
+
+**¿Dónde empezamos a modificar?**
+
+Recordemos que tenemos carpeta `app` que cómo se mencionó, tiene tres archivos esenciales de los cuales generalmente ocuparemos dos:
+
+* `app.component.ts`
+* `app.component.html`
+
+Observar que en `app.component.ts` tenemos lo siguiente
+
+```ts
+import { Component } from '@angular/core'; // Solo importamos lo que necesitamos
+
+// Estos es un decorador
+@Component({
+  selector: 'app-root',
+  // Este archivo esta asociado con el template que señala templateUrl
+  templateUrl: './app.component.html',
+  // Definde los estilos para el template antes mencionado  
+  styleUrls: ['./app.component.css']
+})
+
+// En esta clase podremos la lógica de negocio y los datos de nuestro componente
+export class AppComponent {
+  title = 'todoList';
+  // Agreguemos cosas
+  autor = 'Rodrigo'
+  edad = 23  
+}
+```
+
+Ahora vayamos a `app.component.html` y borremos todo el contenido excepto por la última línea (`<router-outlet></router-outlet>`), la cuál únicamente comentaremos.
+
+Escribamos un poco de HTML
+
+```html
+<h1>Hola mundo</h1>
+
+<!-- <router-outlet></router-outlet> -->
+```
+
+<!-- Crear componentes -Ciclo de vida de los componentes - Renderizar información entre componentes - Directivas -->
 
 ### Referencias
 
 * [JavaTpoint](https://www.javatpoint.com/angular-7-files-explanation)
+* [Angular guide](https://angular.io/guide)
 
