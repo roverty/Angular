@@ -1,0 +1,30 @@
+header {
+    background: rgb(111, 0, 255);
+    padding: 1em 0;
+}
+
+header a {
+    color: rgb(255,255,255);
+    text-decoration: none;
+}
+
+header a logo {
+    font-weight: bold;
+}
+
+header nav {
+    float: right;
+}
+
+header nav ul {
+    list-style-type: none;
+    margin: 0;
+    display: flex;
+}
+header nav ul li {
+    padding: 1em;
+    /* 
+    &:hover {
+        background: darken(rgb(111, 0, 255), 10%);
+    } */
+}
