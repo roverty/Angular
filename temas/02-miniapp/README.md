@@ -126,7 +126,7 @@ Ahora sí ... ¡Vayamos al código!
 
 #### Entry point
 
-Al abrir el archivo `index.html` observamos que tenemos una nueva etiqueta:
+Al abrir el archivo `index.html` observamos que tenemos una nueva etiqueta, llamada selector:
 
 ```html
 <body>
@@ -161,8 +161,8 @@ import { Component } from '@angular/core'; // Solo importamos lo que necesitamos
 export class AppComponent {
   title = 'todoList';
   // Agreguemos cosas
-  autor = 'Rodrigo'
-  edad = 23  
+  autor:string = 'Rodrigo'
+  edad:number = 23  
 }
 ```
 
@@ -171,12 +171,159 @@ Ahora vayamos a `app.component.html` y borremos todo el contenido excepto por la
 Escribamos un poco de HTML
 
 ```html
-<h1>Hola mundo</h1>
+<h1>Hola mundo {{autor}}</h1> 
+<p>
+    {{2 + 2}}
+</p>
 
 <!-- <router-outlet></router-outlet> -->
 ```
 
-<!-- Crear componentes -Ciclo de vida de los componentes - Renderizar información entre componentes - Directivas -->
+Al llamar a un atributo de la clase con la que está enlazado nuestro template tenemos que utilizar interpolación: `{{autor}}` 
+
+**Pipes**
+
+```html
+<h1>Hola mundo {{autor | upercase }}</h1> 
+```
+
+#### Creación de componentes
+
+Para crear un nuevo componente tenemos que hacer uso del CLI
+
+```sh
+ng generate component components/todos
+```
+
+En este caso la sintaxis es `ng generate component` seguida del nombre del componente que queramos crear. Adicional a ello podemos indicar el directorio en donde queremos que se guarde dicho componente, con la finalidad de tener un mayor orden. Por ello antes del nombre tener `components/`
+
+Al terminar el comando se crean los archivos que se ven a continuación:
+
+![new](assets/componente.png)
+
+Además, la lista de componentes registrados en nuestro NgModule aumenta:
+
+![ngmodule](assets/ngmodule.png)
+
+Cada componente que creemos se debe registrar en el módulo para podamos ocuparlo, afortunadamente el CLI hace esto por nosotros.
+
+Tener en mente que estamos intentando crear una estructura similar a la de la izquierda:
+
+![Component compilation context](assets/compilation-context.png)
+
+Solo que tendrá más niveles de anidamiento.
+
+Ahora, usemos nuestro componente recién creado, abrimo el archivo `html` y escribimos lo siguiente
+
+```html
+<h3>Estos son todos mis pendientes</h3>
+```
+
+Para usar el componente debemos usar el nombre definido  la variable `selector`, que se el decorador `@Component`, del archivo `.ts`
+
+![tsfile](assets/tsfile.png)
+
+Dicho nombre lo utilizamos en el `app.component.html`
+
+```html
+<app-todos></app-todos>
+```
+
+Observar que el archivo `todos.component.ts` presenta una diferencia con respecto del de `app.component.ts`, se agrega un método llamado `OnInit`
+
+```ts
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-todos',
+  templateUrl: './todos.component.html',
+  styleUrls: ['./todos.component.css']
+})
+export class TodosComponent implements OnInit {
+
+  constructor() { } // Se utiliza para incluir servicios
+
+  ngOnInit(): void { // Se utiliza para inicializar edos. de vars.
+  }
+    
+}
+```
+
+Para tener todo bien modulado debemos crear una *clase de datos*, un término super empleado en Java o general siempre que se quiere consumir datos de un servicio que tengan cierta estructura. 
+
+Creamos un directorio en `app` llamado `models` y en él creamos un archivo llamado `Todo.ts`, cuyo contenido es el siguiente:
+
+```ts
+export class Todo {
+    id:number;
+    titulo:string;
+    completado: number | boolean;
+
+    constructor(
+        id?:number,
+        titulo?:string,
+        completado?:number|boolean
+    ) {
+        if (id && titulo && completado) {
+            this.id = id;
+            this.titulo = titulo;
+            this.completado = completado
+        }
+    }
+}
+```
+
+Ahora utilizamos esta clase en la clase `ts` de *todos*, para ello debemos importarla de la siguiente forma:
+
+```ts
+import Todo from '../../models/Todo';
+```
+
+Ahora la usamos para crear un arreglo de *Todos*
+
+```ts
+// ... Se omiten ciertas cosas que estan arriba de la clase
+export class TodosComponent implements OnInit {
+
+  todos: Todo[];
+
+  constructor() { }
+
+  ngOnInit(): void {
+    this.todos = [
+      {
+        id:1,
+        titulo:'Hacer los ejercicios de JS',
+        completado: true
+      },
+      {
+        id:2,
+        titulo:'Instalar npm',
+        completado: false
+      },
+      {
+        id:2,
+        titulo:'Inscribirse a Laravel',
+        completado: 0
+      },
+    ]
+  }
+
+}
+```
+
+Ahora intentemos imprimir estas tareas en nuestro sitio web para ellos debemos ir  `todos.component.html` e imprimirlos de la siguiente manera
+
+* Debemos usar un *loop*
+
+```html
+<ul *ngFor="let todo of todos">
+    <li>{{todo.titulo}}</li>
+</ul>
+
+```
+
+<!-- Ciclo de vida de los componentes - Renderizar información entre componentes - Directivas -->
 
 ### Referencias
 
