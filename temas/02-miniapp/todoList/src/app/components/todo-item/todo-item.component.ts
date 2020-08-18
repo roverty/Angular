@@ -1,4 +1,4 @@
-import { Component, OnInit,Input } from '@angular/core';
+import { Component, OnInit,Input,Output,EventEmitter } from '@angular/core';
 import Todo from 'src/app/models/Todo';
 
 @Component({
@@ -9,10 +9,28 @@ import Todo from 'src/app/models/Todo';
 export class TodoItemComponent implements OnInit {
 
   @Input() todoProp: Todo;
+  @Output() borrarTodo: EventEmitter<Todo> = new EventEmitter();
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  clasesCSS(){
+    let clases = {
+      todo: true,
+      'is-complete': this.todoProp.completado === true
+    }
+    return clases;
+  }
+
+  toggle(todo:Todo){
+    this.todoProp.completado = !todo.completado
+    // Actualizar en el servidor
+  }
+  borrarItem(todo:Todo){
+    console.log('Se quiere borrar el item');
+    this.borrarTodo.emit(todo)
   }
 
 }

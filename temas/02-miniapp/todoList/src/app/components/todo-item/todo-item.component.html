@@ -1,1 +1,13 @@
-<p>{{ todoProp.titulo }}</p>
+<div [ngClass]="clasesCSS()">
+    <p>
+        <input type="checkbox" 
+            (change)="toggle(todoProp)" 
+            [checked]="todoProp.completado" 
+            id="{{ todoProp.id }}" > 
+        <label for="{{ todoProp.id }}">
+            {{ todoProp.titulo }}
+          </label>
+        <button (click)="borrarItem(todoProp)" class="del">x</button>
+    </p>    
+</div>
+

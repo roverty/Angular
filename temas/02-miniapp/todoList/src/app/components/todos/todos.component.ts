@@ -25,11 +25,22 @@ export class TodosComponent implements OnInit {
         completado: false
       },
       {
-        id:2,
+        id:3,
         titulo:'Inscribirse a Laravel',
         completado: 0
       },
     ]
+  }
+
+  borrarTodo(todo:Todo){
+    console.log('borrame :(');
+    this.todos = this.todos.filter(t => t.id!== todo.id) 
+  }
+
+  agregarTodo(todo:Todo){
+    console.log("LO");
+    
+    this.todos.push(todo)
   }
 
 }

@@ -1,2 +1,6 @@
-<app-todo-item *ngFor="let todo of todos" [todoProp]="todo">
+<app-add-todo (agregarTodo)="agregarTodo($event)"></app-add-todo>
+<app-todo-item 
+    *ngFor="let todo of todos" 
+    [todoProp]="todo"
+    (borrarTodo)="borrarTodo($event)">
 </app-todo-item>

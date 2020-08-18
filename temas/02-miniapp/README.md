@@ -187,6 +187,50 @@ Al llamar a un atributo de la clase con la que está enlazado nuestro template t
 <h1>Hola mundo {{autor | upercase }}</h1> 
 ```
 
+#### Data binding
+
+¿Cómo es posible que podamos utilizar inteporlación en un archivo `html`, pues es gracias al *data binding*.
+
+Si no utilizariamos angular, tendríamos que inyectar elementos al DOM de manera manual y declarar eventos que permitan responder a las acciones del usuario, sin embargo a medida que tengamos más información, ésta será más díficil de distinguir en nuestro código, por ejemplo:
+
+```js
+// Fragmento tomado del ejemplo de la clase pokemon 
+const input = document.createElement('input');
+const header = document.createElement('h1');
+const subHeader = document.createElement('h2');
+const button = document.createElement('button');
+
+header.innerHTML = "Quien es este pokemon?";
+button.innerText = 'Intentar de nuevo';
+
+document.body.append(header);
+document.body.append(input);
+
+input.addEventListener('keyup', function(event) {
+	
+	if (event.key === "Enter") {
+	//	console.log(event);
+		if (pokemonName.toLowerCase() == input.value.toLowerCase()) {
+			subHeader.innerHTML = "Felicidades, eres un maestro pokemon";
+		} else {
+			subHeader.innerHTML = `Perdiste, el nombre correcto es ${pokemonName}`;
+		}
+	
+	document.body.append(subHeader);
+	document.body.append(button);
+	input.value = '';
+	}
+});
+
+button.addEventListener('click', function(event) {
+	window.location.reload();
+});
+```
+
+En lugar de hacer lo anterior, Angular separa perfectamente la lógica de la vista y para ello se apoya en componentes que están enlazados con plantillas (en donde se definen las vistas), como se puede apreciar en la siguiente imagen:
+
+![Data Binding](assets/component-databinding.png)
+
 #### Creación de componentes
 
 Para crear un nuevo componente tenemos que hacer uso del CLI
@@ -273,6 +317,8 @@ export class Todo {
 }
 ```
 
+**Nota:** Esta clase de datos también se puede crear con Angular CLI: `ng generate class models/Todo`
+
 Ahora utilizamos esta clase en la clase `ts` de *todos*, para ello debemos importarla de la siguiente forma:
 
 ```ts
@@ -316,6 +362,24 @@ Ahora intentemos imprimir estas tareas en nuestro sitio web para ellos debemos i
 
 * Debemos usar un *loop*
 
+#### Directivas
+
+Las directivas son en realidad *decorators* pero para nuestros fines las podemos ver como elementos que podemos utilizar en nuestro `.html` para crear una página más dinámica.
+
+En Angular tenemos dos tipos de directivas:
+
+* Directivas Estructurales
+  * NgIf
+  * NgFor
+  * NgSwitch.
+* Directivas de atributo
+  * NgStyle
+  * NgClass
+
+Regresando al código:
+
+`todos.component.html`
+
 ```html
 <ul *ngFor="let todo of todos">
     <li>{{todo.titulo}}</li>
@@ -323,7 +387,7 @@ Ahora intentemos imprimir estas tareas en nuestro sitio web para ellos debemos i
 
 ```
 
-<!-- Ciclo de vida de los componentes - Renderizar información entre componentes - Directivas -->
+> ¿Por qué es necesario el asterisco (*)  en las directivas estructurales? En realidad es *sugar sintaxis*, para más información  ir a la sección [The asterisk (*)](https://angular.io/guide/structural-directives#the-asterisk--prefix) prefix de la documentación de Angular
 
 <!-- A partir de aquí faltan muchas explicaciones, ahora solo comando y código -->
 
@@ -331,9 +395,10 @@ Ahora intentemos imprimir estas tareas en nuestro sitio web para ellos debemos i
 ng g c components/TodoItem
 ```
 
-`todos,component.html`
+`todos.component.html`
 
 ```html
+<!-- Se utiliza un directiva de atributo que hemos definido -->
 <app-todo-item *ngFor="let todo of todos" [todoProp]="todo">
 </app-todo-item>
 ```
@@ -373,6 +438,392 @@ Por último modificamos el `todo-item.component.html`
 ```html
 <p>{{ todoProp.titulo }}</p>
 ```
+
+Ahora, no solo queremos imprimir el titulo, por lo que agregaremos más elementos:
+
+```html
+<div>
+ <p>
+    <input type="checkbox"> 
+    <label for="{{ todoProp.id }}">
+        {{ todoProp.titulo }}
+      </label>
+    <button class="del">x</button>
+</p>   
+</div>	
+```
+
+Agreguemos los estilos:
+
+`syle.css`
+
+ ```css
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.4;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+}
+
+.container {
+  padding: 0 1rem;
+}
+
+.btn {
+  display: inline-block;
+  border: none;
+  background: #555;
+  color: #fff;
+  padding: 7px 20px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #666;
+}
+ ```
+
+`todo-item.component.css`
+
+```css
+.del {
+  background: #ff0000;
+  color: #fff;
+  border: none;
+  padding: 5px 9px;
+  border-radius: 50%;
+  cursor: pointer;
+  float: right;
+}
+
+.todo {
+  background: #f4f4f4;
+  padding: 10px;
+  border-bottom: 1px #ccc dotted;
+}
+
+.is-complete {
+  text-decoration: line-through;
+}
+```
+
+**Directiva NgClass**
+
+Ahora queremos que se apliquen los estilos `todo` y `is-complete` del css para ello las vamos a enlazar al componente de manera dinámica con las siguientes reglas:
+
+* Siempre vamos a requerir el estilo `todo`, 
+* `is-complete` solo se utiliza si el todo tiene el atributo `completado` en `true`
+  * Les toca hacer más extensible este para que también sirva cuando completado es un número y su valor es uno
+
+Para ello el archivo `todo-item.component.html` debe quedar de la siguiente manera:
+
+```html
+<div [ngClass]="clasesCSS()">
+    <!-- permanece igual -->
+</div>
+```
+
+Ahora en el controlador de este template (el archivo ` ts`)
+
+```ts
+export class TodoItemComponent implements OnInit {
+
+  @Input() todoProp: Todo;
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+  <!-- New -->
+  clasesCSS(){
+    let clases = {
+      todo: true,
+      'is-complete': this.todoProp.completado === true
+    }
+    return clases;
+  }
+  <!-- Finishd New -->
+
+}
+```
+
+**Eventos**
+
+Los eventos comunican cambios en la interfaz de usuario a la clase controladora, veremos dos
+
+* click
+* change
+
+Para ello seguiremos modificando nuestro `todo-item.component.html`
+
+``` ts
+<div [ngClass]="clasesCSS()">
+    <p>
+        <input type="checkbox" (change)="toggle(todoProp)"> 
+        <label for="{{ todoProp.id }}">
+            {{ todoProp.titulo }}
+          </label>
+        <button (click)="borrarItem(todoProp)" class="del">x</button>
+    </p>    
+</div>
+```
+
+Y ahora debemos declarar los métodos `toggle` y `borrarItem` en el archivo `ts`
+
+```ts
+  toggle(todo:Todo){
+    this.todoProp.completado = !todo.completado
+    // Actualizar en el servidor
+  }
+  borrarItem(todo:Todo){
+    console.log('Se quiere borrar el item');
+  }
+```
+
+Se puede mejor la experiencie de usuario vinculando el estado de la nota con el estado del checkbox
+
+```html
+<div [ngClass]="clasesCSS()">
+    <p>
+        <input type="checkbox" 
+            (change)="toggle(todoProp)" 
+            [checked]="todoProp.completado" 
+            id="{{ todoProp.id }}" > 
+        <label for="{{ todoProp.id }}">
+            {{ todoProp.titulo }}
+          </label>
+        <button (click)="borrarItem(todoProp)" class="del">x</button>
+    </p>    
+</div>
+```
+
+**¿Cómo implementarias la función delete?**
+
+Para ello debemos recordar que hemos construido nuestro proyecto en componentes jerarquizados. Para poder borrar un elemento tenemos que informarle al componente padre que éste lo debe hacer. Ya que si recordamos, en primer lugar, de él obtuvimos el elemento  *todo*.
+
+Por lo tanto necesitamos importar dos bibliotecas de angular que nos ayudarán:
+
+* Output
+* EventEmitter
+
+```ts
+import { Component, OnInit,Input,Output,EventEmitter } from '@angular/core'; // NEW
+import Todo from 'src/app/models/Todo';
+
+@Component({
+  selector: 'app-todo-item',
+  templateUrl: './todo-item.component.html',
+  styleUrls: ['./todo-item.component.css']
+})
+export class TodoItemComponent implements OnInit {
+
+  @Input() todoProp: Todo;
+  @Output() borrarTodo: EventEmitter<Todo> = new EventEmitter(); // NEW
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+  clasesCSS(){
+    let clases = {
+      todo: true,
+      'is-complete': this.todoProp.completado === true
+    }
+    return clases;
+  }
+
+  toggle(todo:Todo){
+    this.todoProp.completado = !todo.completado
+    // Actualizar en el servidor
+  }
+  borrarItem(todo:Todo){
+    console.log('Se quiere borrar el item');
+    this.borrarTodo.emit(todo) // NEW
+  }
+
+}
+```
+
+Ahora debemos atrapar este evento en el componente padre, primero veamos `todos.component.html`
+
+```html
+<app-todo-item 
+    *ngFor="let todo of todos" 
+    [todoProp]="todo"
+    (borrarTodo)="borrarTodo($event)">
+</app-todo-item>
+```
+
+Ahora en `todos.component.ts`, agregamos la función "borrarTodo"
+
+```ts
+  borrarTodo(todo:Todo){
+    console.log('borrame :(');
+    this.todos = this.todos.filter(t => t.id!== todo.id)  
+  }
+```
+
+**Ahora hagamos la funcionalidad para agregar notas y platiquemos del `two way data binding`**
+
+Creamos un nuevo componente
+
+```sh
+ng g c componentes/AddTodo
+```
+
+`add-todo.component.html`
+
+```html
+<form class="form" >
+    <input type="text" name="titulo" [(ngModel)]="titulo" placeholder="Agregar nota">
+    {{titulo}}
+    <input type="submit" value="Submit" class="btn">
+  </form>
+
+```
+
+`add-todo.component.ts`
+
+```ts
+import { Component, OnInit } from '@angular/core';
+
+@Component({
+  selector: 'app-add-todo',
+  templateUrl: './add-todo.component.html',
+  styleUrls: ['./add-todo.component.css']
+})
+export class AddTodoComponent implements OnInit {
+  titulo:string; // NEW
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+}
+```
+
+Pero para trabajar con formularios y con `ngModel` tenemos que importar un módulo para ello en `app.module.ts` agregamos lo siguiente:
+
+```ts
+import { FormsModule } from '@angular/forms'
+```
+
+Y lo agregamos al `imports` de `@NgModule`.
+
+Agregamos algunos estilos
+
+```css
+.form {
+    display: flex;
+  }
+  
+  .form input[type='text'] {
+    flex: 10;
+    padding: 5px;
+  }
+  
+  .form input[type='submit'] {
+    flex: 2;
+  }
+```
+
+Ahora estamos listos para usar el componente `add-todo`, lo agregaremos en `todos.component.html`
+
+```html
+<app-add-todo></app-add-todo> <!-- NRW -->
+<app-todo-item 
+    *ngFor="let todo of todos" 
+    [todoProp]="todo"
+    (borrarTodo)="borrarTodo($event)">
+</app-todo-item>
+
+```
+
+**Two way data binding**
+
+```html
+<form class="form" (ngSubmit)="onSubmit()">
+    <input type="text" name="titulo" [(ngModel)]="titulo" placeholder="Agregar nota">
+    {{titulo}}
+    <input type="submit" value="Submit" class="btn">
+  </form>
+```
+
+Agregamos el handler
+
+```html
+<form class="form" (ngSubmit)="onSubmit()">
+    <input type="text" name="titulo" [(ngModel)]="titulo" placeholder="Agregar nota">
+    <input type="submit" value="Submit" class="btn">
+  </form>
+```
+
+Y construimos la función `agregarTodo` en el archivo `ts`
+
+```ts
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import Todo from 'src/app/models/Todo';
+
+@Component({
+  selector: 'app-add-todo',
+  templateUrl: './add-todo.component.html',
+  styleUrls: ['./add-todo.component.css']
+})
+export class AddTodoComponent implements OnInit {
+
+  @Output() agregarTodo: EventEmitter<any> = new EventEmitter();
+
+  titulo:string;
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+  onSubmit(){
+    const todo = {
+      titulo:this.titulo,
+      completado: false
+    }
+    this.agregarTodo.emit(todo)
+  }
+}
+```
+
+Mejoramos el `app.component.html`
+
+```html
+<app-add-todo (agregarTodo)="agregarTodo($event)"></app-add-todo>
+<app-todo-item 
+    *ngFor="let todo of todos" 
+    [todoProp]="todo"
+    (borrarTodo)="borrarTodo($event)">
+</app-todo-item>
+```
+
+Ahora en `app.component.ts`
+
+```ts
+  agregarTodo(todo:Todo){
+    // Primero se debería hacer una llamada al servidor
+    this.todos.push(todo)
+  }
+```
+
+
+
+<!-- TODO: * Crear Header ( 1h:08min) * Router * IFs -->
+
+<!-- Ciclo de vida de los componentes -->
 
 ### Referencias
 
