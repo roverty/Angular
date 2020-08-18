@@ -325,6 +325,55 @@ Ahora intentemos imprimir estas tareas en nuestro sitio web para ellos debemos i
 
 <!-- Ciclo de vida de los componentes - Renderizar información entre componentes - Directivas -->
 
+<!-- A partir de aquí faltan muchas explicaciones, ahora solo comando y código -->
+
+```sh
+ng g c components/TodoItem
+```
+
+`todos,component.html`
+
+```html
+<app-todo-item *ngFor="let todo of todos" [todoProp]="todo">
+</app-todo-item>
+```
+
+**Uso de input para pasar información entre componentes**
+
+`todo-item.components.ts`
+
+```ts
+import { Component, OnInit,Input } from '@angular/core';
+```
+
+```ts
+import { Component, OnInit,Input } from '@angular/core';
+import Todo from 'src/app/models/Todo'; // Se autoimporta
+
+@Component({
+  selector: 'app-todo-item',
+  templateUrl: './todo-item.component.html',
+  styleUrls: ['./todo-item.component.css']
+})
+export class TodoItemComponent implements OnInit {
+
+  @Input() todoProp: Todo; // Uso de input
+
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+}
+
+```
+
+Por último modificamos el `todo-item.component.html`
+
+```html
+<p>{{ todoProp.titulo }}</p>
+```
+
 ### Referencias
 
 * [JavaTpoint](https://www.javatpoint.com/angular-7-files-explanation)
