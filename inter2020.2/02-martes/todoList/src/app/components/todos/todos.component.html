@@ -1,1 +1,4 @@
-<p>Estos son mis pendientes</p>
+<app-todo-item 
+    *ngFor="let todo of todos" 
+    [todoProp]="todo">
+</app-todo-item>
