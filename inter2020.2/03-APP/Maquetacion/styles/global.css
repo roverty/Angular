@@ -1,0 +1,22 @@
+:root {
+	--brand-primary: #009eff;
+	--brand-secondary: #001eff;
+
+	--active-primary: #6100ff;
+	--active-secondary: #e100ff;
+
+	--boolean-success: #6100ff;
+	--boolean-faild: #ff001e;
+}
+
+* {
+	margin: 0px;
+	padding: 0px;
+	text-decoration: none;
+	list-style: none;
+    font-family: 'Recursive', sans-serif;
+}
+
+body {
+    background: linear-gradient(180deg, rgba(0,158,255,0.5) 0%, rgba(0,30,255,0.5) 65%, rgba(0,158,255,0.5) 100%);
+}

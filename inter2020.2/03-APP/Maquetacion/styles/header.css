@@ -1,0 +1,94 @@
+.header {
+	display: grid;
+	grid-template-columns: 30% 70%;
+	background-color: var(--brand-primary);
+	line-height: 80px;
+	box-shadow: 1px 1px 10px black;
+	position: fixed;
+	width: 100%;
+	top: 0;
+	z-index: 1;
+}
+
+
+.header h2 a {
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	color: rgba(255, 255, 255, 0.9);
+	cursor: pointer;
+}
+
+.header h2:hover {
+	color: white;
+	text-decoration: underline;
+}
+
+.header__nav ul {
+	display: flex;
+	justify-content: space-around;
+}
+
+.header__nav ul li a {
+	color: rgba(255, 255, 255, 0.9);
+	color: white;
+	font-weight: bold;
+	width: 100%;
+	text-align: center;
+	padding: 10px;
+}
+
+.header__nav:hover > ul li a{
+	color: rgba(255, 255, 255, 0.7);
+}
+
+.header__nav ul li a:hover {
+	color: rgb(255, 255, 255);
+	text-decoration: underline;
+}
+
+.burger-menu {
+	display: none;
+	justify-content: center;
+	align-items: center;
+	font-size: 250%;
+	color: white;
+	cursor: pointer;
+}
+
+.content {
+	height: 100%;
+	margin-top: 100px;
+}
+
+@media screen and (max-width: 628px) {
+	.header {
+		grid-template-areas: "icon logo logo"
+							"menu menu .";
+		grid-template-columns: 20% 30% 40%;
+	}
+	
+	.header h2 {
+		font-size: 180%;
+		grid-area: logo;
+	}
+
+	.header__nav {
+		display: none;
+		grid-area: menu;
+		position: absolute;
+		width: 100%;
+		height: 100vh;
+		background-color: var(--brand-secondary);
+		box-shadow: 1px 5px 5px black;
+	}
+
+	.header__nav ul {
+		display: block;
+	}
+
+	.burger-menu {
+		display: flex;
+		grid-area: icon;
+	}
+}

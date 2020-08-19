@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	 <link href="https://fonts.googleapis.com/css2?family=Recursive&display=swap" rel="stylesheet">
+	 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+	<link rel="stylesheet" href="../styles/styles.css">
+	<title>Krishwait</title>
+</head>
+<body>
+	<header class="header">
+		<i class="material-icons burger-menu">menu</i>
+		<h2><a href="../index.html">Krishwait</a></h2>
+		<nav class="header__nav" id="nav">
+			<ul>
+				<li><a href="./about.html">About us</a></li>
+				<li><a href="#">Cart</a></li>
+				<li><a href="#">Login</a></li>
+			</ul>
+		</nav>
+	</header>
+	<section class="content">
+
+		<div class="content__header">
+			<h2>Bienvenido usuario administrador</h2>
+			
+			<h3>Aquí puedes añadir y eliminar productos</h3>
+	    <button icon='send' class="ProductDetail__form-btn" name='send'>Añadir productos</button>
+
+	    <button icon='send' class="ProductDetail__form-btn" name='send'>Editar o eliminar</button>
+
+		</div>
+
+	<form class="ProductDetail__form">
+    <div class="ProductDetail__form-field">
+      <label for="title">
+        <b>Nombre</b>
+      </label>
+      <input class="ProductDetail__form-input" id="title" type="text" placeholder="title">
+    </div>
+
+    <div class="ProductDetail__form-field">
+      <label><b>
+          Descripción
+        </b></label>
+      <textarea class="ProductDetail__form-description" id="description" type="text" placeholder="description"></textarea>
+    </div>
+    <div class="ProductDetail__form-field">
+      <label>
+        <b>
+          Precio
+        </b>
+      </label>
+      <input class="ProductDetail__form-input" formControlName="price" name="price" type="number">
+    </div>
+
+    <div class="ProductDetail__form-field">
+      <label>
+        <b>
+          Imagen
+        </b>
+      </label>
+      <input class="ProductDetail__form-input" formControlName="price" name="price" type="file">
+    </div>
+
+    <button icon='send' class="ProductDetail__form-btn" name='send'>Enviar</button>
+  </form>
+	</section>
+
+
+<section class="table">
+  <h2 class="table__title">Productos</h2>
+  <table class="table__content">
+    <thead class="table__content-head">
+      <tr>
+    	<th>Producto</th>
+        <th colspan="2">Actions</th>
+      </tr>
+    </thead>
+    <tbody class="table__content-body">
+    	<tr>
+	    	<td>Tenis</td>
+	    	<td>Eliminar</td>
+	    	<td>Editar</td>
+    	</tr>
+    	<tr>
+	    	<td>Camisa</td>
+	    	<td>Eliminar</td>
+	    	<td>Editar</td>
+    	</tr>
+    	<tr>
+	    	<td>Balon</td>
+	    	<td>Eliminar</td>
+	    	<td>Editar</td>
+    	</tr>
+   </tbody>
+  </table>
+</section>
+
+
+
+</body>
+</html>
