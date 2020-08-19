@@ -28,6 +28,25 @@
     justify-content: space-around;
 }
 
+.header__nav--cart {
+    position: relative;
+}
+
+.header__nav--notification {
+    position: absolute;
+    top: 10px;
+    right: 0px;
+    line-height: 30px;
+    border-radius: 300px;
+    width: 30%;
+    animation-name: noty;
+    animation-duration: 0.8s;
+    animation-iteration-count: 1;
+    transform-origin: center top;
+    animation-timing-function: ease-out;
+    background-color: var(--active-secondary);
+}
+
 .header__nav ul li a {
     display: flex;
     color: white;
@@ -59,6 +78,36 @@
 .content {
     height: 100%;
     margin-top: 100px;
+}
+
+@keyframes noty {
+    from {
+        transform: rotate(35deg);
+    }
+    12.5% {
+        transform: rotate(-30deg);
+    }
+    25% {
+        transform: rotate(25deg);
+    }
+    35.5% {
+        transform: rotate(-20deg);
+    }
+    37.5% {
+        transform: rotate(-20deg);
+    }
+    50% {
+        transform: rotate(15deg);
+    }
+    62.5% {
+        transform: rotate(-10deg);
+    }
+    75% {
+        transform: rotate(5deg);
+    }
+    to {
+        transform: rotate(0deg);
+    }
 }
 
 @media screen and (max-width: 628px) {
