@@ -53,37 +53,13 @@
 }
 
 @media screen and (max-width: 880px) {
-    .header__products {
-        margin-top: 7%;
-    }
-}
-
-@media screen and (max-width: 880px) {
     .panelButtons a {
         font-size: 94%;
     }
 }
 
 @media screen and (max-width: 768px) {
-    .content .header__products {
-        margin-top: 5%;
-    }
     .content__products {
         grid-template-columns: repeat(2, 1fr);
-    }
-    .panelButtons a {
-        font-size: 100%;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .content .header__products {
-        margin-top: 10%;
-    }
-}
-
-@media screen and (max-width: 550px) {
-    .content__products {
-        grid-template-columns: repeat(1, 1fr);
     }
 }
