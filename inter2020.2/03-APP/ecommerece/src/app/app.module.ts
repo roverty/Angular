@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { ProductCardComponent } from './shared/product-card/product-card.component';
 import { CategoryProductsComponent } from './products/components/category-products/category-products.component';
+import { Error404Component } from './shared/error404/error404.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     ProductCardComponent,
-    CategoryProductsComponent
+    CategoryProductsComponent,
+    Error404Component
   ],
   imports: [
     BrowserModule,
