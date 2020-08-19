@@ -1,7 +1,7 @@
 <header class="header">
-    <i class="material-icons burger-menu">menu</i>
+    <i (click)="showMenu = !showMenu" class="material-icons burger-menu">menu</i>
     <h2><a routerLink='/' routerLinkActive="router-link-active">Krishwait</a></h2>
-    <nav class="header__nav" id="nav">
+    <nav class="header__nav" id="nav" [ngClass]="{'header__nav--show': showMenu}">
         <ul>
             <li> <a routerLink='/' routerLinkActive="router-link-active"><i class="material-icons">people</i><span>About us</span></a></li>
             <li><a routerLink='/' routerLinkActive="router-link-active"><i class="material-icons">shopping_cart</i><span>Cart</span></a></li>

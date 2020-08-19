@@ -79,6 +79,9 @@
         background-color: var(--brand-secondary);
         box-shadow: 1px 5px 5px black;
     }
+    .header__nav--show {
+        display: flex;
+    }
     .header__nav ul {
         display: block;
     }
