@@ -1,0 +1,24 @@
+.error {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+}
+
+.error_header {
+    font-size: 40px;
+}
+
+.error_button {
+    border: none;
+    color: black;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: var(--active-primary);
+    padding: 10px;
+    border-radius: 30px;
+    color: black;
+}

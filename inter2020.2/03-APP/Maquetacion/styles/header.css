@@ -1,95 +1,142 @@
 .header {
-	display: grid;
-	grid-template-columns: 30% 70%;
-	background-color: var(--brand-primary);
-	line-height: 80px;
-	box-shadow: 1px 1px 10px black;
-	position: fixed;
-	width: 100%;
-	top: 0;
-	z-index: 1;
+    display: grid;
+    grid-template-columns: 30% 70%;
+    background-color: var(--brand-primary);
+    line-height: 80px;
+    box-shadow: 1px 1px 10px black;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1;
 }
 
-
 .header h2 a {
-	display: flex;
-	justify-content: center;
-	text-align: center;
-	color: rgba(255, 255, 255, 0.9);
-	cursor: pointer;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.9);
+    cursor: pointer;
 }
 
 .header h2:hover {
-	color: white;
-	text-decoration: underline;
+    color: white;
+    text-decoration: underline;
 }
 
 .header__nav ul {
-	display: flex;
-	justify-content: space-around;
+    display: flex;
+    justify-content: space-around;
+}
+
+.header__nav--cart {
+    position: relative;
+}
+
+.header__nav--notification {
+    position: absolute;
+    top: 10px;
+    right: 0px;
+    line-height: 30px;
+    border-radius: 300px;
+    width: 30%;
+    animation-name: noty;
+    animation-duration: 0.8s;
+    animation-iteration-count: 1;
+    transform-origin: center top;
+    animation-timing-function: ease-out;
+    background-color: var(--active-secondary);
 }
 
 .header__nav ul li a {
-	display: flex;
-	color: white;
-	font-weight: bold;
-	width: 100%;
-	text-align: center;
-	padding: 10px;
-	align-items: center;
+    display: flex;
+    color: white;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    align-items: center;
+    cursor: pointer;
 }
 
-.header__nav:hover > ul li a {
-	color: rgba(255, 255, 255, 0.7);
+.header__nav:hover>ul li a {
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .header__nav ul li a span:hover {
-	color: rgb(255, 255, 255);
-	text-decoration: underline;
+    color: rgb(255, 255, 255);
+    text-decoration: underline;
 }
 
 .burger-menu {
-	display: none;
-	justify-content: center;
-	align-items: center;
-	font-size: 250%;
-	color: white;
-	cursor: pointer;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    font-size: 250%;
+    color: white;
+    cursor: pointer;
 }
 
 .content {
-	height: 100%;
-	margin-top: 100px;
+    height: 100%;
+    margin-top: 100px;
+}
+
+@keyframes noty {
+    from {
+        transform: rotate(35deg);
+    }
+    12.5% {
+        transform: rotate(-30deg);
+    }
+    25% {
+        transform: rotate(25deg);
+    }
+    35.5% {
+        transform: rotate(-20deg);
+    }
+    37.5% {
+        transform: rotate(-20deg);
+    }
+    50% {
+        transform: rotate(15deg);
+    }
+    62.5% {
+        transform: rotate(-10deg);
+    }
+    75% {
+        transform: rotate(5deg);
+    }
+    to {
+        transform: rotate(0deg);
+    }
 }
 
 @media screen and (max-width: 628px) {
-	.header {
-		grid-template-areas: "icon logo logo"
-							"menu menu .";
-		grid-template-columns: 20% 30% 40%;
-	}
-	
-	.header h2 {
-		font-size: 180%;
-		grid-area: logo;
-	}
-
-	.header__nav {
-		display: none;
-		grid-area: menu;
-		position: absolute;
-		width: 100%;
-		height: 100vh;
-		background-color: var(--brand-secondary);
-		box-shadow: 1px 5px 5px black;
-	}
-
-	.header__nav ul {
-		display: block;
-	}
-
-	.burger-menu {
-		display: flex;
-		grid-area: icon;
-	}
+    .header {
+        grid-template-areas: "icon logo logo" "menu menu .";
+        grid-template-columns: 20% 30% 40%;
+    }
+    .header h2 {
+        font-size: 180%;
+        grid-area: logo;
+    }
+    .header__nav {
+        display: none;
+        grid-area: menu;
+        position: absolute;
+        width: 100%;
+        height: 100vh;
+        background-color: var(--brand-secondary);
+        box-shadow: 1px 5px 5px black;
+    }
+    .header__nav--show {
+        display: flex;
+    }
+    .header__nav ul {
+        display: block;
+    }
+    .burger-menu {
+        display: flex;
+        grid-area: icon;
+    }
 }
