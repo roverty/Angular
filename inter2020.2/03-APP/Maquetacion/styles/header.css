@@ -30,19 +30,20 @@
 }
 
 .header__nav ul li a {
-	color: rgba(255, 255, 255, 0.9);
+	display: flex;
 	color: white;
 	font-weight: bold;
 	width: 100%;
 	text-align: center;
 	padding: 10px;
+	align-items: center;
 }
 
-.header__nav:hover > ul li a{
+.header__nav:hover > ul li a {
 	color: rgba(255, 255, 255, 0.7);
 }
 
-.header__nav ul li a:hover {
+.header__nav ul li a span:hover {
 	color: rgb(255, 255, 255);
 	text-decoration: underline;
 }
