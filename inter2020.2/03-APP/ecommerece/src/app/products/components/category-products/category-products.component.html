@@ -1,7 +1,7 @@
 <section class="content">
-    <h2 class="header__products">Productos</h2>
+    <h2 class="header__products">{{ titleHeader }}</h2>
     <div *ngIf="products.length == 0" class="">
-        <h2>Cargando...</h2>
+        <h2>{{ titleSubheader }}</h2>
     </div>
     <div class="content__products">
         <app-product-card *ngFor="let product of products" [product]="product"></app-product-card>
