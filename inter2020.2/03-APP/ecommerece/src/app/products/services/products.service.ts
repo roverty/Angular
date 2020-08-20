@@ -19,4 +19,7 @@ export class ProductsService {
     return this.http.get('https://us-central1-krishwait-3933a.cloudfunctions.net/api/getProducts');
   }
 
+  getProduct(id): Observable<object> {
+    return this.http.get(`https://us-central1-krishwait-3933a.cloudfunctions.net/api/getProduct?idProduct=${id}`);
+  }
 }

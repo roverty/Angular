@@ -1,1 +1,11 @@
-<p>detail-product works!</p>
+<h2 *ngIf="!product">Loading ....</h2>
+<section *ngIf="product" class="content detail-product">
+
+    <h2>{{product.title}}</h2>
+    <img [src]="product.img">
+    <h3>{{product.price | currency}}</h3>
+
+    <p>{{product.description}}</p>
+
+    <button>Add Cart</button>
+</section>
