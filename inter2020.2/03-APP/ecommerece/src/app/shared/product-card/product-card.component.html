@@ -5,7 +5,7 @@
         <p class="card_subtitle">{{product.price | currency}}</p>
         <p class="card__description">{{product.description}}</p>
         <div class="panelButtons">
-            <a href="#">Add cart</a>
+            <a (click)="addProduct()">Add cart</a>
             <a routerLink="/detailProduct/{{product.id}}">See product</a>
         </div>
     </div>

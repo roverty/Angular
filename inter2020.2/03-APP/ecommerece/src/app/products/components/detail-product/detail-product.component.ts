@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ProductsService } from '../../services/products.service';
 import Product from '../../models/product.model';
@@ -15,7 +15,8 @@ export class DetailProductComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -23,8 +24,11 @@ export class DetailProductComponent implements OnInit {
       this.productsService.getProduct(params.id).subscribe((response: Product) => {
         // console.log(response);
         this.product = response;
+      },
+      error => {
+        console.log('Whoops something went wrong');
+        this.router.navigateByUrl('/notFound');
       });
-
     });
   }
 

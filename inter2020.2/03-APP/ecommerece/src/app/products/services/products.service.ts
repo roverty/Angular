@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 import Product from '../models/product.model';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,16 +11,17 @@ import { Observable } from 'rxjs';
 export class ProductsService {
 
   public products: Product[] = [];
+  private url = 'https://us-central1-krishwait-3933a.cloudfunctions.net/api';
 
   constructor(
     private http: HttpClient
   ) { }
 
   getProducts(): Observable<object> {
-    return this.http.get('https://us-central1-krishwait-3933a.cloudfunctions.net/api/getProducts');
+    return this.http.get(`${this.url}/getProducts`);
   }
 
   getProduct(id): Observable<object> {
-    return this.http.get(`https://us-central1-krishwait-3933a.cloudfunctions.net/api/getProduct?idProduct=${id}`);
+    return this.http.get(`${this.url}/getProduct?idProduct=${id}`);
   }
 }
