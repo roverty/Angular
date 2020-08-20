@@ -5,8 +5,9 @@
         <p class="card_subtitle">{{product.price | currency}}</p>
         <p class="card__description">{{product.description}}</p>
         <div class="panelButtons">
-            <a (click)="addProduct()">Add cart</a>
+            <a *ngIf="addCart" (click)="addProduct()">Add cart</a>
             <a routerLink="/detailProduct/{{product.id}}">See product</a>
+            <a *ngIf="!addCart">Quanty</a>
         </div>
     </div>
 </div>
