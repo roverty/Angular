@@ -15,8 +15,6 @@ export class ProductCardComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.cart.getObservable().subscribe(response => {
-    });
   }
 
   addProduct(): void {

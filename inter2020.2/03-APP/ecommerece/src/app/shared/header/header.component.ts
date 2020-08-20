@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { CartService } from '../../products/services/cart.service';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -8,10 +10,22 @@ import { Component, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit {
 
   public showMenu = false;
+  public countProducts: number;
+  public animation: boolean;
 
-  constructor() { }
+  constructor(
+    private cartService: CartService
+  ) { }
 
   ngOnInit(): void {
+    this.cartService.getObservable().subscribe(response => {
+        // console.log(response);
+        this.countProducts = this.cartService.getCart().length;
+        this.animation = true;
+        setTimeout(() => {
+          this.animation = false;
+        }, 800);
+    });
   }
 
 }

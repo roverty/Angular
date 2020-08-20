@@ -39,12 +39,15 @@
     line-height: 30px;
     border-radius: 300px;
     width: 30%;
+    background-color: var(--active-secondary);
+}
+
+.header__nav--animation {
     animation-name: noty;
     animation-duration: 0.8s;
     animation-iteration-count: 1;
     transform-origin: center top;
     animation-timing-function: ease-out;
-    background-color: var(--active-secondary);
 }
 
 .header__nav ul li a {

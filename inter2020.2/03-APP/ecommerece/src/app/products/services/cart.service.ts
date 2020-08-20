@@ -19,7 +19,7 @@ export class CartService {
   addProduct(product: Product): void {
     this.cart.push(product);
     console.log(this.cart);
-    return this.addCart.next(product);
+    this.addCart.next(product);
   }
 
   getCart(): Product[] {

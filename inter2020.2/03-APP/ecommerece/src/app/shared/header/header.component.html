@@ -5,7 +5,7 @@
         <ul>
             <li> <a routerLink='/' routerLinkActive="router-link-active"><i class="material-icons">people</i><span>About us</span></a></li>
             <li><a class="header__nav--cart" routerLink='/' routerLinkActive="router-link-active"><i class="material-icons">shopping_cart</i><span>Cart</span>
-                <!-- <span class="header__nav--notification">1</span> -->
+                <span *ngIf="countProducts > 0" class="header__nav--notification" [ngClass]="{'header__nav--animation': animation}">{{ countProducts }}</span>
             </a></li>
             <li><a routerLink='/' routerLinkActive="router-link-active"><i class="material-icons">person</i><span>Login</span></a></li>
         </ul>
