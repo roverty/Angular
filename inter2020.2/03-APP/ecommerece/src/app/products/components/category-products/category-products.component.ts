@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ProductsService } from '../../services/products.service';
+import Product from '../../models/product.model';
+
 @Component({
   selector: 'app-category-products',
   templateUrl: './category-products.component.html',
@@ -7,36 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoryProductsComponent implements OnInit {
 
-  public products = [
-    {
-      title: 'Sudadera',
-      price: 100,
-      description: 'This are very chidos shoes Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, architecto',
-      img: 'assets/img/sweter.png'
-    },
-    {
-      title: 'Balon',
-      price: 100,
-      description: 'This are very chidos shoes Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, architecto',
-      img: 'assets/img/ball.png'
-    },
-    {
-      title: 'Gorra',
-      price: 100,
-      description: 'This are very chidos shoes Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, architecto',
-      img: 'assets/img/cap.png'
-    },
-    {
-      title: 'Tenis',
-      price: 100,
-      description: 'This are very chidos shoes Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime, architecto',
-      img: 'assets/img/nike.png'
-    }
-  ];
+  public products: Product[] = [];
 
-  constructor() { }
+  constructor(
+    private productsService: ProductsService
+  ) { }
 
   ngOnInit(): void {
+    this.productsService.getProducts().subscribe( (response: Product[]) => {
+      this.products = response;
+    });
   }
 
 }
