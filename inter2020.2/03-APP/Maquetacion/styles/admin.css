@@ -1,8 +1,30 @@
+/* Start Dashboard */
+
+.content {
+  margin-top: 100px;
+}
+
 .content__header {
   text-align: center;
 }
 
-/* Add product */
+.ProductDetail__form-btn {
+  border-radius: 30px;
+  font-weight: bolder;
+  border: none;
+  padding: 20px;
+  cursor: pointer;
+  background-color: var(--active-primary);
+  color: white;
+  transition: all 300ms;
+}
+
+.ProductDetail__form-btn:hover {
+  background-color: var(--brand-secondary);
+}
+/* End Dashboard */
+
+/* Start Form */
 
 .ProductDetail__form {
   margin-top: 10%;
@@ -43,7 +65,9 @@
   background-color: var(--brand-secondary);
 }
 
-/* Table of products */
+/* End Form */
+
+/* Start Table of products */
 
 .table {
   width: 100%;
@@ -76,3 +100,4 @@
   border-bottom: 2px solid black;
   padding: 10px;
 }
+/* End Table of products */
