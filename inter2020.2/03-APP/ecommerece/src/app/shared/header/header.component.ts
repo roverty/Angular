@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { CartService } from '../../products/services/cart.service';
+import { AuthService } from '../../administrator/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -14,7 +15,8 @@ export class HeaderComponent implements OnInit {
   public animation: boolean;
 
   constructor(
-    private cartService: CartService
+    private cartService: CartService,
+    public auth: AuthService
   ) { }
 
   ngOnInit(): void {
