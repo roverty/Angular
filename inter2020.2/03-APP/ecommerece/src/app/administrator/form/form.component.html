@@ -1,0 +1,43 @@
+<section class="content">
+    <div class="content__header">
+        <h2>Bienvenido a tu panel de administrador</h2>
+    </div>
+    <form [formGroup]="addProductsFrom" class="ProductDetail__form" (ngSubmit)="send()">
+        <div class="ProductDetail__form-field">
+            <label for="title">
+            <b>Nombre</b>
+          </label>
+            <input name="title" formControlName="title" class="ProductDetail__form-input" id="title" type="text" placeholder="title">
+            <p *ngIf="invalidForm('title')">Invalid field</p>
+        </div>
+
+        <div class="ProductDetail__form-field">
+            <label><b>
+              Descripción
+            </b></label>
+            <textarea formControlName="description" class="ProductDetail__form-description" id="description" type="text" placeholder="description" name="description"></textarea>
+            <p *ngIf="invalidForm('description')">Invalid field</p>
+        </div>
+        <div class="ProductDetail__form-field">
+            <label>
+            <b>
+              Precio
+            </b>
+          </label>
+            <input class="ProductDetail__form-input" formControlName="price" name="price" type="number">
+            <p *ngIf="invalidForm('price')">Invalid field</p>
+        </div>
+
+        <div class="ProductDetail__form-field">
+            <label>
+            <b>
+              Imagen
+            </b>
+          </label>
+            <input (change)="upload($event)" class="ProductDetail__form-input" formControlName="img" name="img" type="file">
+            <p *ngIf="invalidForm('img')">Invalid field</p>
+        </div>
+
+        <button type="submit" class="ProductDetail__form-btn" name='send'>Enviar</button>
+    </form>
+</section>

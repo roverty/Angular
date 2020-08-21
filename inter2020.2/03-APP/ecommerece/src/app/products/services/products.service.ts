@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 
 import Product from '../models/product.model';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -24,4 +23,14 @@ export class ProductsService {
   getProduct(id): Observable<object> {
     return this.http.get(`${this.url}/getProduct?idProduct=${id}`);
   }
+
+  postProduct(product: Product, url: string): Observable<object> {
+    const id = String(Math.floor(Math.random() * 500000));
+    const myProduct = product;
+    myProduct.img = url;
+    myProduct.id = id;
+    console.log(myProduct);
+    return this.http.post(`${this.url}/postProduct`, myProduct);
+  }
+
 }

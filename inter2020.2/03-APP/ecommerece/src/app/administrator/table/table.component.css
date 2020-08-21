@@ -1,0 +1,33 @@
+/* Table of products */
+
+.table {
+    width: 100%;
+}
+
+.table__title {
+    text-align: center;
+}
+
+.table__content {
+    width: 100%;
+    border-spacing: 0px;
+}
+
+.table__content-head {
+    background-color: var(--brand-secondary);
+    color: white;
+}
+
+.table__content-head tr th {
+    padding: 10px;
+}
+
+.table__content-body {
+    background-color: var(--brand-primary);
+    color: white;
+}
+
+.table__content-body td {
+    border-bottom: 2px solid black;
+    padding: 10px;
+}
