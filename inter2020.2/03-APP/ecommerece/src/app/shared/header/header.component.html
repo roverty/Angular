@@ -3,10 +3,13 @@
     <h2><a routerLink='/' routerLinkActive="router-link-active">Krishwait</a></h2>
     <nav class="header__nav" id="nav" [ngClass]="{'header__nav--show': showMenu}">
         <ul>
-            <li> <a routerLink='/' routerLinkActive="router-link-active"><i class="material-icons">people</i><span>About us</span></a></li>
+            <li *ngIf="!auth.loggedIn"> <a routerLink='/'><i class="material-icons">people</i><span>About us</span></a></li>
+            <li *ngIf="auth.loggedIn"> <a routerLink='/administrator'><i class="material-icons">admin_panel_settings</i><span>Administrator</span></a></li>
+
             <li><a class="header__nav--cart" routerLink='/cart' routerLinkActive="router-link-active"><i class="material-icons">shopping_cart</i><span>Cart</span>
                 <span *ngIf="countProducts > 0" class="header__nav--notification" [ngClass]="{'header__nav--animation': animation}">{{ countProducts }}</span>
             </a></li>
+
             <li *ngIf="!auth.loggedIn"><a (click)="auth.login()"><i class="material-icons">person</i><span>Log In</span></a></li>
             <li *ngIf="auth.loggedIn"><a (click)="auth.logout()"><i class="material-icons">person</i><span>Log Out</span></a></li>
         </ul>

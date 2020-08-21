@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
+import { AuthGuard } from './administrator/services/auth.guard';
+
 import { CategoryProductsComponent } from './products/components/category-products/category-products.component';
 import { Error404Component } from './shared/error404/error404.component';
 import { DetailProductComponent } from './products/components/detail-product/detail-product.component';
@@ -13,9 +16,9 @@ const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'detailProduct/:id', component: DetailProductComponent },
   { path: 'cart', component: CategoryProductsComponent },
-  { path: 'administrator', component: DashboardComponent },
-  { path: 'administrator/form', component: FormComponent },
-  { path: 'administrator/table', component: TableComponent },
+  { path: 'administrator', component: DashboardComponent, canActivate: [ AuthGuard] },
+  { path: 'administrator/form', component: FormComponent, canActivate: [ AuthGuard] },
+  { path: 'administrator/table', component: TableComponent, canActivate: [ AuthGuard] },
   { path: '**', component: Error404Component}
 ];
 
